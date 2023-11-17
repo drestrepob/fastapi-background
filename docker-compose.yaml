@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7.2.3-alpine
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 2s
+      retries: 3
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: restaurant-service
+    command: ["./scripts/server-entrypoint.sh"]
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./app:/src/app
+      - ./scripts:/src/scripts
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: restaurant-worker
+    command: ["./scripts/worker-entrypoint.sh"]
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./app:/src/app
+      - ./scripts:/src/scripts

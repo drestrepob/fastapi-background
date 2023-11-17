@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "fastapi-background"
+version = "0.1.0"
+description = "Imagine a scenario in a restaurant. You are a waiter and getting orders from the customer. After passing the order to the kitchen for the chef to prepare the food, instead of waiting for the food to finish prepared, it’s much more efficient to go to other tables, start getting more orders and pass those on to the kitchen as well."
+authors = ["Daniel Restrepo <danielrestrepo9725@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.100.1"
+uvicorn = "^0.24.0"
+pydantic = "^2.0.1"
+pydantic-settings = "^2.0.0"
+redis = "^5.0.1"
+rq = "^1.15.1"
+
+[tool.poetry.dev-dependencies]
+black = "^23.9.0"
+mypy = "^1.5.1"
+ruff = "^0.0.290"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
